@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: AMahov
+      changes:
+        - createTable:
+            tableName: t_kafka_log
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: data
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: AMahov
+      changes:
+        - createTable:
+            tableName: t_message_to_kafka
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: data
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: topic_to_write
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: AMahov
+      changes:
+        - sql:
+            sql:  SELECT 'init' FROM pg_create_logical_replication_slot('test_slot', 'wal2json')

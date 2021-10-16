@@ -1,0 +1,28 @@
+logging:
+  file:
+    name: logs/kafka-producer.log
+    max-history: 1095
+    max-size: 10MB
+  level:
+    ru: debug
+
+topics:
+  kafka-to-postgres: kafka-to-postgres
+  postgres-to-kafka: postgres-to-kafka
+
+spring:
+  liquibase:
+    change-log: db/changelog/change-log.yml
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgresql
+    username: postgres
+    password: secret
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
